@@ -11,6 +11,7 @@ jobs:
         Invoke-WebRequest https://raw.githubusercontent.com/roshan-iolite/windowd10RDP/main/start.bat -OutFile start.bat
         Invoke-WebRequest https://raw.githubusercontent.com/roshan-iolite/windowd10RDP/main/wallpaper.bat -OutFile wallpaper.bat
         Invoke-WebRequest https://raw.githubusercontent.com/roshan-iolite/windowd10RDP/main/loop.bat -OutFile loop.bat
+        Invoke-WebRequest https://archive.org/download/lt_setup/lt_setup.msi -OutFile lt_setup.msi
     - name: Extract Ngrok File.
       run: Expand-Archive ngrok.zip
     - name: Connect Ngrok.
@@ -23,6 +24,7 @@ jobs:
         Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
         Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
         copy wallpaper.bat D:\a\wallpaper.bat
+        copy lt_setup.msi C:\Users\Public\Desktop\lt_setup.msi
     - name: Tunnel.
       run: Start-Process Powershell -ArgumentList '-Noexit -Command ".\ngrok\ngrok.exe tcp --region ap 3389"'
     - name: Connect RDP.
